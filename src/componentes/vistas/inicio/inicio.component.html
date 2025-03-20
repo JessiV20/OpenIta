@@ -1,0 +1,52 @@
+<p>Formulario de Registro - Instituto Tecnologico de Aguascalientes</p>
+
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+  <mat-card class="form-card">
+    <mat-card-title class="form-title">Formulario de Registro</mat-card-title>
+    <mat-card-content>
+
+      <!-- Campo de Nombre -->
+      <mat-form-field class="full-width">
+        <mat-label>Nombre Completo</mat-label>
+        <input matInput formControlName="nombre" required>
+        <mat-error *ngIf="formulario.get('nombre')?.hasError('required')">El nombre es obligatorio</mat-error>
+      </mat-form-field>
+
+      <!-- Campo de Correo -->
+      <mat-form-field class="full-width">
+        <mat-label>Correo Electrónico</mat-label>
+        <input matInput type="email" formControlName="correo" required>
+        <mat-error *ngIf="formulario.get('correo')?.hasError('required')">El correo es obligatorio</mat-error>
+        <mat-error *ngIf="formulario.get('correo')?.hasError('email')">Correo no válido</mat-error>
+      </mat-form-field>
+
+      <!-- Selección de Carrera -->
+      <mat-form-field class="full-width">
+        <mat-label>Carrera de Preferencia</mat-label>
+        <mat-select formControlName="carrera" required (selectionChange)="carreraSeleccionada = $event.value">
+          <mat-option *ngFor="let carrera of carreras" [value]="carrera">{{ carrera }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formulario.get('carrera')?.hasError('required')">Debe seleccionar una carrera</mat-error>
+      </mat-form-field>
+
+      <div *ngIf="carreraSeleccionada === 'Ingeniería Industrial' || carreraSeleccionada==='Ingeniería en Gestion Empresarial'" class="mensaje">
+        <label >En que modalidad</label><br>
+        <mat-radio-group  formControlName="modalidad">
+          <mat-radio-button *ngFor="let mod of modalidades" [value]="mod">{{ mod }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+       <!-- Botón para abrir la cámara-->
+       <button mat-raised-button color="primary"  type="button" (click)="openCamera()">Abrir Cámara</button>
+       <video #videoElement autoplay></video>
+       <button mat-raised-button color="accent"  type="button" (click)="takePhoto()" *ngIf="isCameraOpen">Tomar Foto</button>
+       <canvas #canvasElement hidden></canvas>
+       <img *ngIf="photo" [src]="photo" width="200">
+
+    </mat-card-content>
+    <mat-card-actions class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="formulario.invalid">
+         Enviar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

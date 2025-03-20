@@ -1,0 +1,53 @@
+.tarjeta {
+    width: 400px;
+    height: 600px;
+    background: linear-gradient(to bottom, #ffffff, #0d47a1);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: white;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+}
+
+.encabezado h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    color: #0d47a1;
+}
+
+.slogan {
+    font-size: 14px;
+    color: #047bdd;
+    margin-bottom: 20px; 
+}
+
+.foto {
+    width: 120px;
+    height: 120px;
+    background: white;
+    border-radius: 50%;
+    margin: 0 auto 15px auto; 
+    border: 3px solid #fff;
+}
+
+.contenido h3 {
+    font-size: 24px; 
+    margin: 15px 0 10px;
+}
+
+.rol {
+    font-size: 16px; 
+    color: #ffeb3b;
+    margin-bottom: 20px; 
+}
+
+.contenido p {
+    font-size: 16px; 
+    margin: 10px 0;
+}
