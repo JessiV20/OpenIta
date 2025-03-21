@@ -92,6 +92,12 @@ export class InicioComponent {
     if (this.stream) {
       this.stream.getTracks().forEach(track => track.stop());
       this.isCameraOpen = false;
+      
+      // Liberar el flujo de la cámara
+      if (this.videoElement && this.videoElement.nativeElement) {
+        this.videoElement.nativeElement.srcObject = null;
+        this.videoElement.nativeElement.style.display = 'none'; // Ocultar el video
+      }
     }
   }
   
