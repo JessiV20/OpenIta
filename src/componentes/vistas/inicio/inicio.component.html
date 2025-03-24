@@ -1,26 +1,34 @@
-<h1>Crea tu perfil digital</h1>
+<section id="form">
+  <h1>Crea tu perfil digital</h1>
 
 <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
   <mat-card class="form-card">
+    <img src="/open.png" alt="Logo ITA" class="form-logo">
+    <br><br>
     <mat-card-title class="form-title">Ingresa los datos correspondiente en el formulario</mat-card-title>
     <mat-card-content>
 
       <!-- Campo de Nombre -->
+       <div class="apliColor">
       <mat-form-field class="full-width">
         <mat-label>Nombre Completo</mat-label>
         <input matInput formControlName="nombre" required>
         <mat-error *ngIf="formulario.get('nombre')?.hasError('required')">El nombre es obligatorio</mat-error>
       </mat-form-field>
+      </div>
 
       <!-- Campo de Correo -->
+      <div class="apliColor">
       <mat-form-field class="full-width">
         <mat-label>Correo Electrónico</mat-label>
         <input matInput type="email" formControlName="correo" required>
         <mat-error *ngIf="formulario.get('correo')?.hasError('required')">El correo es obligatorio</mat-error>
         <mat-error *ngIf="formulario.get('correo')?.hasError('email')">Correo no válido</mat-error>
       </mat-form-field>
+      </div>
 
       <!-- Selección de Carrera -->
+      <div class="apliColor">
       <mat-form-field class="full-width">
         <mat-label>Carrera de Preferencia</mat-label>
         <mat-select formControlName="carrera" required (selectionChange)="carreraSeleccionada = $event.value">
@@ -28,6 +36,7 @@
         </mat-select>
         <mat-error *ngIf="formulario.get('carrera')?.hasError('required')">Debe seleccionar una carrera</mat-error>
       </mat-form-field>
+      </div>
 
       <div *ngIf="carreraSeleccionada === 'Ingeniería Industrial' || carreraSeleccionada==='Ingeniería en Gestion Empresarial'" class="mensaje">
         <label >En que modalidad</label><br>
@@ -50,3 +59,5 @@
     </mat-card-actions>
   </mat-card>
 </form>
+</section>
+

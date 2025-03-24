@@ -38,7 +38,7 @@ import {  ViewChild, ElementRef } from '@angular/core';
 export class InicioComponent {
   @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
-  
+
   isCameraOpen = false;
   photo: string | null = null;
   stream: MediaStream | null = null;
@@ -54,7 +54,7 @@ export class InicioComponent {
       correo: ['', [Validators.required, Validators.email]],
       carrera: ['', Validators.required],
       modalidad: ['Presencial']
-    
+
     });
   }
   async openCamera() {
@@ -72,7 +72,7 @@ export class InicioComponent {
 
   takePhoto() {
     if (!this.videoElement || !this.canvasElement) return;
-    
+
     const video = this.videoElement.nativeElement;
     const canvas = this.canvasElement.nativeElement;
     const context = canvas.getContext('2d');
@@ -92,7 +92,7 @@ export class InicioComponent {
     if (this.stream) {
       this.stream.getTracks().forEach(track => track.stop());
       this.isCameraOpen = false;
-      
+
       // Liberar el flujo de la cámara
       if (this.videoElement && this.videoElement.nativeElement) {
         this.videoElement.nativeElement.srcObject = null;
@@ -100,16 +100,16 @@ export class InicioComponent {
       }
     }
   }
-  
+
   enviarFormulario() {
-   
+
      this.datos = this.formulario.value;
     Swal.fire({
       title: "Estas Seguro?",
-      html: (`<strong>Revisa tus datos antes de confirmar</strong><br>` + 
-        `<strong>Nombre</strong>: ${this.formulario.value.nombre}<br>` + 
-        `<strong>Correo</strong>: ${this.formulario.value.correo}<br>` + 
-        `<strong>Carrera</strong>: ${this.formulario.value.carrera}`+
+      html: (`<strong>Revisa tus datos antes de confirmar</strong><br><br>` +
+        `<strong>Nombre</strong>: ${this.formulario.value.nombre}<br>` +
+        `<strong>Correo</strong>: ${this.formulario.value.correo}<br>` +
+        `<strong>Carrera</strong>: ${this.formulario.value.carrera}<br>`+
         ` <strong>Modalidad:</strong> ${this.formulario.value.modalidad}`),
       icon: "warning",
       showCancelButton: true,
@@ -120,7 +120,7 @@ export class InicioComponent {
       if (result.isConfirmed) {
         if (this.formulario.valid) {
           const datosFormulario = this.formulario.value;
-      
+
           // Enviar los datos al servidor
           this.http.post('http://localhost:4300/api/guardar-datos', datosFormulario).subscribe(
             (response: any) => {
@@ -138,11 +138,11 @@ export class InicioComponent {
                   no-repeat
                 `,timer: 3000
               });
-          
+
               this.route.navigate(['tarjeta/inicio'], { queryParams: { response: JSON.stringify(response) } });
 
-              
-              
+
+
             },
             (error) => {
               console.error('Error al guardar los datos', error);
