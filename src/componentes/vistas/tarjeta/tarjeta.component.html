@@ -1,5 +1,5 @@
 <section>
-  <div class="tarjeta">
+  <div class="tarjeta" [ngStyle]="{'background-image': getFondoCarrera()}">
     <div class="encabezado">
       <img src="/open.png" alt="Logo ITA" class="form-logo">
     </div>
@@ -12,6 +12,7 @@
       <!--<p><strong>Email:</strong> {{ this.correo }}</p>-->
       <p><strong>Carrera:</strong> {{ this.carrera }}</p>
       <p><strong>Modalidad:</strong> {{ this.modalidad }}</p>
+      <img src="/quimica.png" alt="" width="130" class="qr">
     </div>
   </div>
 

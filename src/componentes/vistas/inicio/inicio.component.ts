@@ -45,7 +45,7 @@ export class InicioComponent {
   formulario: FormGroup;
   carreraSeleccionada: string | null = null;
   modalidad:string[]=['Presencial','Distancia']
-  carreras: string[] = ['Ingeniería en Tics', 'Ingeniería Industrial', 'Ingeniería en Gestion Empresarial', 'Ingeniería en Quimica','Ingeniería Elctrica','Ingeniería Electronica'];
+  carreras: string[] = ['Ingeniería en Tics', 'Ingeniería Industrial', 'Ingeniería en Gestión Empresarial', 'Ingeniería en Química','Ingeniería Eléctrica','Ingeniería Electrónica', 'Ingeniería Mécanica', 'Ingeniería en Materiales', 'Ingeniería en Semiconductores', 'Ingeniería en Ciberseguridad', 'Licenciatura en Administración'];
   datos:any[]=[];
   modalidades: string[] = ['Presencial', 'Distancia'];
   constructor(private fb: FormBuilder, private http: HttpClient, private route: Router) {

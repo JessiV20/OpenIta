@@ -6,7 +6,7 @@ section{
     width: 400px;
     height: 600px;
     /*background: linear-gradient(to bottom, #ffffff, #0d47a1);*/
-    background-image: url('https://i.pinimg.com/736x/71/e6/18/71e61888c6960949c677690a5c26f619.jpg');
+    /*background-image: url('https://i.pinimg.com/736x/71/e6/18/71e61888c6960949c677690a5c26f619.jpg');*/
     background-size: cover;
     background-position: center;
     border-radius: 10px;
@@ -52,4 +52,8 @@ section{
 .contenido p {
     font-size: 16px;
     margin: 10px 0;
+}
+
+.qr{
+  border: 5px solid #004e92;
 }
