@@ -19,18 +19,67 @@ export class TarjetaComponent {
   modalidad:string='';
   fotoBase64:string='';
   fondosCarreras: { [key: string]: string } = {
-    'Ingeniería en Tics': 'url(https://example.com/fondo-sistemas.jpg)',
-    'Ingeniería Industrial': 'url(https://i.pinimg.com/736x/6c/6f/fc/6c6ffce59781902ca471f01db946a7bb.jpg)',
-    'Ingeniería en Gestión Empresarial': 'url(https://i.pinimg.com/736x/42/e5/a6/42e5a6c2e26c8bd2c4f5fd9ffa6fbf5a.jpg)',
-    'Ingeniería Química': 'url(https://i.pinimg.com/736x/71/e6/18/71e61888c6960949c677690a5c26f619.jpg)',
-    'Ingeniería Eléctrica': 'url(https://i.pinimg.com/736x/38/42/13/384213759bf0b9f87c48e31b0b767691.jpg)',
-    'Ingeniería Electrónica': 'url(https://example.com/fondo-electronica.jpg)',
-    'Ingeniería Mécanica': 'url(https://example.com/fondo-quimica.jpg)',
-    'Ingeniería en Materiales': 'url(https://example.com/fondo-bioquimica.jpg)',
-    'Ingeniería en Semiconductores': 'url(https://example.com/fondo-administracion.jpg)',
-    'Ingeniería en Ciberseguridad': 'url(https://example.com/fondo-administracion.jpg)',
-    'Licenciatura en Administración': 'url(https://example.com/fondo-administracion.jpg)',
+    'Ingeniería en Tics': 'url(/background/tics.jpg)',
+    'Ingeniería Industrial': 'url(/background/industrial.jpg)',
+    'Ingeniería en Gestión Empresarial': 'url(/background/ige.avif)',
+    'Ingeniería Química': 'url(/background/quimica.jpg)',
+    'Ingeniería Eléctrica': 'url(/background/electrica.jpg)',
+    'Ingeniería Electrónica': 'url(/background/electronica.jpg)',
+    'Ingeniería Mécanica': 'url(/background/mecanica.jpg)',
+    'Ingeniería en Materiales': 'url(/background/materiales.jpg)',
+    'Ingeniería en Semiconductores': 'url(/background/semiconductor.avif)',
+    'Ingeniería en Ciberseguridad': 'url(/background/ciberseguridad.jpg)',
+    'Licenciatura en Administración': 'url(/background/admin.jpg)',
   };
+
+  imagenesCarreras: { [key: string]: { [key: string]: string } } = {
+    'Ingeniería en Tics': {
+      'Presencial': '/tics.png',
+      'Distancia': '/tics.png',
+    },
+    'Ingeniería Industrial': {
+      'Presencial': '/industrial-presencial.png',
+      'Distancia': '/industrial-distancia.png',
+    },
+    'Ingeniería en Gestión Empresarial': {
+      'Presencial': '/ige-presencial.png',
+      'Distancia': '/ige-distancia.png',
+    },
+    'Ingeniería Química': {
+      'Presencial': '/quimica.png',
+      'Distancia': '/quimica.png',
+    },
+    'Ingeniería Eléctrica': {
+      'Presencial': '/electrica.png',
+      'Distancia': '/electrica.png',
+    },
+    'Ingeniería Electrónica': {
+      'Presencial': '/electronica.png',
+      'Distancia': '/electronica.png',
+    },
+    'Ingeniería Mécanica': {
+      'Presencial': '/mecanica.png',
+      'Distancia': '/mecanica.png',
+    },
+    'Ingeniería en Materiales': {
+      'Presencial': '/materiales.png',
+      'Distancia': '/materiales.png',
+    },
+    'Ingeniería en Semiconductores': {
+      'Presencial': '/semiconductores.png',
+      'Distancia': '/semiconductores.png',
+    },
+    'Ingeniería en Ciberseguridad': {
+      'Presencial': '/ciberseguridad.png',
+      'Distancia': '/ciberseguridad.png',
+    },
+    'Licenciatura en Administración': {
+      'Presencial': '/administracion.png',
+      'Distancia': '/administracion.png',
+    },
+  };
+
+
   constructor(private route: ActivatedRoute){ }
   ngOnInit(){
     this.route.queryParams.subscribe(params => {
@@ -56,6 +105,10 @@ export class TarjetaComponent {
   }
   getFondoCarrera(): string {
     return this.fondosCarreras[this.carrera] || 'url(https://i.pinimg.com/736x/6c/6f/fc/6c6ffce59781902ca471f01db946a7bb.jpg)';
+  }
+  getQR(): string {
+    const modalidadSeleccionada = this.modalidad || 'Presencial';
+    return this.imagenesCarreras[this.carrera]?.[modalidadSeleccionada] || '/tics.png';
   }
   descargarTarjeta() {
     if (!this.tarjeta) return;
