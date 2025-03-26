@@ -38,7 +38,7 @@
       </mat-form-field>
       </div>
 
-      <div *ngIf="carreraSeleccionada === 'Ingeniería Industrial' || carreraSeleccionada==='Ingeniería en Gestion Empresarial'" class="mensaje">
+      <div *ngIf="carreraSeleccionada === 'Ingeniería Industrial' || carreraSeleccionada==='Ingeniería en Gestión Empresarial'" class="mensaje">
         <label >En que modalidad</label><br>
         <mat-radio-group  formControlName="modalidad">
           <mat-radio-button *ngFor="let mod of modalidades" [value]="mod">{{ mod }}</mat-radio-button>

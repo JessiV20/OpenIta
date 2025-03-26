@@ -1,11 +1,11 @@
-<section>
-  <div class="tarjeta" [ngStyle]="{'background-image': getFondoCarrera()}">
+<section  class="contenedor">
+  <div #tarjeta class="tarjeta" [ngStyle]="{'background-image': getFondoCarrera()}">
     <div class="encabezado">
       <img src="/open.png" alt="Logo ITA" class="form-logo">
     </div>
-    <div class="foto">
-      <!-- Puedes colocar aquí una imagen de perfil -->
-    </div>
+
+      <img *ngIf="fotoBase64" [src]="fotoBase64" class="foto">
+
     <div class="contenido">
       <h3>{{ this.nombre }}</h3>
       <p class="rol">ASPIRANTE</p>
@@ -16,4 +16,5 @@
     </div>
   </div>
 
+  <button class="descargar-btn" (click)="descargarTarjeta()">Descargar Tarjeta</button>
 </section>

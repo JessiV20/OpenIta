@@ -96,7 +96,7 @@ export class InicioComponent {
       // Liberar el flujo de la cámara
       if (this.videoElement && this.videoElement.nativeElement) {
         this.videoElement.nativeElement.srcObject = null;
-        this.videoElement.nativeElement.style.display = 'none'; // Ocultar el video
+        this.videoElement.nativeElement.style.display = 'none';
       }
     }
   }
@@ -139,7 +139,9 @@ export class InicioComponent {
                 `,timer: 3000
               });
 
-              this.route.navigate(['tarjeta/inicio'], { queryParams: { response: JSON.stringify(response) } });
+              this.route.navigate(['tarjeta/inicio'], { queryParams: { response: JSON.stringify(response),
+                foto: this.photo
+               } });
 
 
 

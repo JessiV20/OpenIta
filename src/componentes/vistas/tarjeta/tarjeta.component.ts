@@ -1,20 +1,23 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Importar CommonModule
-
+import { CommonModule } from '@angular/common';
+import html2canvas from 'html2canvas';
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-tarjeta',
-  imports: [CommonModule], // Agregar CommonModule aquí
+  imports: [CommonModule], 
   templateUrl: './tarjeta.component.html',
   styleUrl: './tarjeta.component.css'
 })
 export class TarjetaComponent {
+  @ViewChild('tarjeta', { static: false }) tarjeta!: ElementRef;
   nombre:string='';
   correo:string='';
   carrera:string='';
   modalidad:string='';
+  fotoBase64:string='';
   fondosCarreras: { [key: string]: string } = {
     'Ingeniería en Tics': 'url(https://example.com/fondo-sistemas.jpg)',
     'Ingeniería Industrial': 'url(https://i.pinimg.com/736x/6c/6f/fc/6c6ffce59781902ca471f01db946a7bb.jpg)',
@@ -46,9 +49,22 @@ export class TarjetaComponent {
           console.error('Error al parsear JSON:', error);
         }
       }
+      if (params['foto']) {
+        this.fotoBase64 = params['foto']; 
+      }
     });
   }
   getFondoCarrera(): string {
     return this.fondosCarreras[this.carrera] || 'url(https://i.pinimg.com/736x/6c/6f/fc/6c6ffce59781902ca471f01db946a7bb.jpg)';
+  }
+  descargarTarjeta() {
+    if (!this.tarjeta) return;
+
+    html2canvas(this.tarjeta.nativeElement).then(canvas => {
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png'); 
+      link.download = 'tarjeta.png'; 
+      link.click();
+    });
   }
 }
