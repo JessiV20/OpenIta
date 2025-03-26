@@ -12,10 +12,10 @@
       <!--<p><strong>Email:</strong> {{ this.correo }}</p>-->
       <p><strong>Carrera:</strong> {{ this.carrera }}</p>
       <p><strong>Modalidad:</strong> {{ this.modalidad }}</p>
-      <img src="{{ getQR() }}" alt="" class="qr" width="130">
-
+      <img src="{{ getQR()}}" alt="" width="130" class="qr">
     </div>
   </div>
 
-  <button class="descargar-btn" (click)="descargarTarjeta()">Descargar Tarjeta</button>
 </section>
+<button class="descargar-btn" (click)="descargarTarjeta()">Descargar Tarjeta</button>
+
