@@ -73,6 +73,7 @@ section{
   margin: 0 auto;
 
 }
+
 .descargar-btn:hover {
   background: linear-gradient(135deg, #0056b3, #0088cc);
   transform: scale(1.05);
@@ -82,6 +83,10 @@ section{
   flex-direction: column;
   align-items: center;
   gap: 15px;
+}
+.mi-tarjeta {
+  width: 300px;
+  height: auto;
 }
 
 @media screen and (max-width: 400px) {

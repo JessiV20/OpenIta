@@ -4,10 +4,12 @@ import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import html2canvas from 'html2canvas';
 import { ViewChild, ElementRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-tarjeta',
-  imports: [CommonModule], 
+  imports: [CommonModule, HttpClientModule], 
   templateUrl: './tarjeta.component.html',
   styleUrl: './tarjeta.component.css'
 })
@@ -17,7 +19,8 @@ export class TarjetaComponent {
   correo:string='';
   carrera:string='';
   modalidad:string='';
-  fotoBase64:string='';
+  fotoBase64: string | null = null; 
+  imagenGenerada: string | null = null;
   fondosCarreras: { [key: string]: string } = {
     'Ingeniería en Tics': 'url(/background/tics.jpg)',
     'Ingeniería Industrial': 'url(/background/industrial.jpg)',
@@ -80,7 +83,7 @@ export class TarjetaComponent {
   };
 
 
-  constructor(private route: ActivatedRoute){ }
+  constructor(private route: ActivatedRoute, private http : HttpClient){ }
   ngOnInit(){
     this.route.queryParams.subscribe(params => {
       if (params['response']) {
@@ -103,6 +106,30 @@ export class TarjetaComponent {
       }
     });
   }
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.generarImagen();
+    }, 500);
+  }
+
+  async generarImagen() {
+    if (this.tarjeta) {
+      try {
+        const canvas = await html2canvas(this.tarjeta.nativeElement, {
+          scale: 0.9, // Reducir la escala
+          logging: false,
+          useCORS: true
+        });
+        
+        // Reducir calidad/convertir a JPEG para menor tamaño
+        this.imagenGenerada = canvas.toDataURL('image/jpeg', 0.9);
+        console.log('Imagen generada con tamaño reducido');
+        this.enviarCorreo();
+      } catch (error) {
+        console.error('Error al generar imagen:', error);
+      }
+    }
+  }
   getFondoCarrera(): string {
     return this.fondosCarreras[this.carrera] || 'url(https://i.pinimg.com/736x/6c/6f/fc/6c6ffce59781902ca471f01db946a7bb.jpg)';
   }
@@ -120,4 +147,34 @@ export class TarjetaComponent {
       link.click();
     });
   }
-}
+  enviarCorreo() {
+    if (!this.imagenGenerada) {
+      console.error('No hay imagen generada para enviar');
+      alert('Primero debe generarse la imagen');
+      return;
+    }
+  
+    console.log('Preparando para enviar correo...');
+    
+    // Extraer solo la parte base64 de la imagen
+    const imagenParaEnviar = this.imagenGenerada.split(',')[1] || this.imagenGenerada;
+  
+    this.http.post('http://localhost:4300/api/enviar-correo', {
+      nombre: this.nombre,
+      correo: this.correo,
+      asunto: 'Tarjeta de presentación',
+      mensaje: `¡Hola ${this.nombre}, gracias por tu interés en nuestra institución!`,
+      imagen: imagenParaEnviar
+    })
+    .subscribe({
+      next: (response) => {
+        console.log('Correo enviado exitosamente:', response);
+        alert('Correo enviado con éxito');
+      },
+      error: (error) => {
+        console.error('Error al enviar el correo:', error);
+        alert('Hubo un error al enviar el correo');
+      }
+    });
+  }
+}  
